@@ -3,9 +3,11 @@ from tasks.models import Task
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.username")
+
     class Meta:
         model = Task
-        fields = ["title", "description", "completed", "created_at"]
+        fields = ["title", "description", "completed", "created_at", "user"]
 
     def validate_title(self, value):
         if not value.strip():
