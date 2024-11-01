@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 # local imports
 from tasks.models import Task
@@ -17,6 +19,9 @@ class TaskListCreateView(ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     pagination_class = TaskPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ["completed"]
+    search_fields = ["title"]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
