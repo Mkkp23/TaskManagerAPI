@@ -6,6 +6,9 @@ from tasks.models import Task
 from tasks.serializers import TaskSerializer
 
 
+ 
+
+
 # view for listing and creating tasks
 class TaskListCreateView(ListCreateAPIView):
     queryset = Task.objects.all()
